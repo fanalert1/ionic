@@ -1,0 +1,137 @@
+<!-- Chat Screen - Refer to _chat.scss -->
+<ion-view view-title="{{title}}" hide-nav-bar="true" class="rubyonic-pane chat-screen">
+  <!-- Custom Header:
+  We did this so we could have a custom bar without 
+  altering ionic's state/history management.
+  Use with 'hide-nav-bar="true"' attribute at line 1: -->
+  <div class="bar bar-ruby-header bar-transparent">
+
+      <button class="button ruby-button-clear icon ion-navicon brand-base-text-color" menu-toggle="left">
+        <span class="new-notification-bubble"></span>
+      </button>
+     <!-- <h1 class="title brand-base-text-color" >{{title}}</h1> -->
+    
+  <h1 class="title title-left brand-base-text-color" style="margin-left: 13%;">{{title}}</h1> 
+
+  <img src="img/logo.png" alt="" height="30" width="100" 
+  style="margin-left: 62%; ">
+
+  
+     <!-- 
+    float: right;margin-right: 10px ; position: static;
+     <button class="button ruby-button-clear icon ion-android-notifications brand-base-text-color" menu-toggle="right"> -->
+
+  </div>
+  <!-- End Custom navbar -->
+  <ion-content class="has-header"> <!-- Controller might not be needed to defined explicitly. it can create scope issues-->
+
+    <div class="padding ruby">
+    	
+      	<div class="list list-inset form-rb">
+            <label class="item item-input ruby-search-box">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="Search Movies" ng-model="searchText">
+            </label>
+        </div>
+
+
+ <!-- 	<div class="list chat-list" ng-controller="MovieCtrl"> -->
+  <!-- Controller might not be needed to defined explicitly. it can create scope issues-->
+
+ <div class="list">
+
+      <!-- <a class="item item-avatar busy" -->
+
+            <a class="item" href="#" ng-repeat="movie in movies | filter:searchText">
+
+            
+
+              <img src="{{movie.poster_url}}" style="float: left; position: static; margin-right: 15px; max-height: 120px;" ng-href="{{movie.link}}" >
+
+
+              <h3 class="notification-title">{{movie.name}} ({{movie.lang}}) </h3>
+                <p><span ng-repeat="actor in movie.actors">{{ actor }}{{$last ? '' : ', '}}</span>  </p>
+                <p>Directed By {{movie.director[0]}} </p>
+                <p>Releasing on {{movie.release_ts | date}}</p>
+                <!-- <p>Status: {{movie.type}}</p> -->
+                
+                <!--<p>{{movie.update_ts | date:'MM/dd/yyyy hh:mm:ss' }}</p>-->
+                
+              <button class="button button-small"  ng-click="go('{{movie.link}}')" ng-if="movie.type=='running'">
+                  Book Now
+              </button>
+               
+              <button class="button button-small"  ng-click="goMoviePage('{{movie.name}}')">
+                  More..
+              </button>
+
+
+                
+                <span class="badge badge-balanced" ng-if="movie.type=='running'" style="font-size:10px">Book. Open</span> 
+                
+    
+                <span class="badge badge-assertive" ng-if="movie.type=='upcoming'">Book. Not Open</span> 
+              
+            
+            </a>
+
+            <br/><br/>
+
+
+
+
+
+          <!--
+            <a class="item item-avatar online" ng-click="go('app.chat-ui')">
+              <img src="img/demo/profile-image.jpg" class="notification-thumb">
+              <h3 class="notification-title">Tracy Melfin</h3>
+              <p class="notification-summary">“nom nom nom......nom!”</p>
+            </a>
+
+          -->
+
+            
+
+    </div>
+
+
+  </div>
+
+
+
+  </ion-content>
+
+
+
+
+
+   <nav class="tabs tabs-icon-bottom chat-footer-controls" style="padding-top:0px;">
+
+      <a class="{{tamilTab}}" ng-click="changeLang('Tamil')">
+        <h4 style="margin-top:13px">
+          <font color="#2980B9" ng-if="lang==='Tamil'">Tamil</font>
+          <font ng-if="lang!='Tamil'">Tamil</font>
+        </h4>
+      </a>
+      <a class="{{hindiTab}}" ng-click="changeLang('Hindi')">
+        <h4 style="margin-top:13px">
+          <font color="#2980B9" ng-if="lang==='Hindi'">Hindi</font>
+          <font ng-if="lang!='Hindi'">Hindi</font>
+        </h4>
+      </a>
+      <a class="{{englishTab}}" ng-click="changeLang('English')">
+        <h4 style="margin-top:13px">
+          <font color="#2980B9" ng-if="lang==='English'">English</font>
+          <font ng-if="lang!='English'">English</font>
+        </h4>
+      </a>
+      <a class="{{othersTab}}" ng-click="changeLang('Others')">
+        <h4 style="margin-top:13px">
+          <font color="#2980B9" ng-if="lang==='Others'">Others</font>
+          <font ng-if="lang!='Others'">Others</font>
+        </h4>
+      </a>
+    </nav>
+  
+
+</ion-view>

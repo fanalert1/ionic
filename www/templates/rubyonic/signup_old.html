@@ -1,0 +1,39 @@
+<ion-view view-title="Sign Up" hide-nav-bar="true" class="rubyonic-pane chat-screen">
+
+   <div class="bar bar-ruby-header bar-transparent">
+
+      <button class="button ruby-button-clear icon ion-navicon brand-base-text-color" menu-toggle="left">
+        <span class="new-notification-bubble"></span>
+      </button>
+     <!-- <h1 class="title brand-base-text-color" >{{title}}</h1> -->
+    
+      <h1 class="title title-left brand-base-text-color" style="margin-left: 13%;">Register</h1> 
+
+      <img src="img/logo.png" alt="" height="30" width="100" 
+      style="margin-left: 62%; ">
+     <!-- 
+    float: right;margin-right: 10px ; position: static;
+     <button class="button ruby-button-clear icon ion-android-notifications brand-base-text-color" menu-toggle="right"> -->
+
+  </div>
+
+    <ion-content padding="true" class="has-header">
+        <form>
+            <ion-list>
+                <label class="item item-input">
+                    <span class="input-label">Username</span>
+                    <input type="text" placeholder="enter username..." ng-model="data.username">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Email</span>
+                    <input type="email" placeholder="you@domain.com" ng-model="data.email">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Password</span>
+                    <input type="password" placeholder="At least 6 characters" ng-model="data.password">
+                </label>
+            </ion-list>
+            <button class="button button-stable button-block" ng-click="signupEmail()">Done</button>
+        </form>
+    </ion-content>
+</ion-view>

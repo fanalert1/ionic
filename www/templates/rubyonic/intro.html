@@ -1,0 +1,117 @@
+<html>
+ <head>
+
+<style type="text/css">
+
+body {
+  cursor: url('http://ionicframework.com/img/finger.png'), auto;
+ 
+}
+.slider {
+  height: 100vh;
+
+}
+.slider-slide {
+  padding-top: 10%;
+  padding-bottom: 2%;
+  color: #000;
+  
+  background: url("img/fans.png")  center bottom fixed;
+  background-repeat: repeat-x;
+  background-color: #ECF0F1;
+  text-align: center;
+
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  font-weight: 300;
+  height: 100%;
+}
+
+#logo {
+  margin: 30px 0px;
+}
+
+#list {
+  width: 170px;
+  margin: 30px auto;
+  font-size: 20px;
+}
+#list ol {
+  margin-top: 30px;
+}
+#list ol li {
+  text-align: left;
+  list-style: decimal;
+  margin: 10px 0px;
+}
+
+.button.ng-hide{
+  display:none;
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<!-- Login Screen - refer to login.scss -->
+<ion-view view-title="Intro" hide-nav-bar="true" >
+  <ion-content>
+
+
+  		<ion-slide-box on-slide-changed="slideChanged(index)">
+          <ion-slide>
+            <div  >
+
+                <h3>Booking first day tickets ? </h3>
+                <div id="logo">
+                  <img src="img/thala-blue.png" width="80%">
+                </div>
+                <p>
+                  Beat the Rush.
+                </p>
+                <p>
+                  <h4>
+                  Get notified instantly <br/>when movie booking opens
+                  </h4>
+                </p>
+            </div>
+
+            <button ng-click="go('app.signup')" style="border-color: #ECF0F1; position:absolute; bottom: 10%; right:52%;" class="button bar-calm" ng-controller="NavigationCtrl">Signup</button>
+            <button ng-click="go('app.login')" style="border-color: #ECF0F1; position:absolute; bottom: 10%; right:30%;" class="button bar-calm" ng-controller="NavigationCtrl">Login</button>
+          </ion-slide>
+        
+          <ion-slide>
+            
+            
+            <div class="box blue">
+              <h3>
+                 <h3>Available in<br/> Chennai Region </h3>
+              </h3>
+                <br/>
+
+                <img src="img/logo.png" width="70%">
+                <br/>
+              <h4>
+                <br/>Get Live Booking Status alerts
+              </h4>
+              <br/>
+               <button ng-click="go('app.signup')" style="border-color: #ECF0F1; position:absolute; bottom: 10%; right:52%;" class="button bar-calm" ng-controller="NavigationCtrl">Signup</button>
+               <button ng-click="go('app.login')" style="border-color: #ECF0F1; position:absolute; bottom: 10%; right:30%;" class="button bar-calm" ng-controller="NavigationCtrl">Login</button>
+            </div>
+           
+
+          </ion-slide>
+         
+        </ion-slide-box>
+
+
+ 
+
+
+
+  </ion-content>
+
+</ion-view>
+</body>

@@ -1,0 +1,72 @@
+<!-- Post Screen - Refer to viewpost.scss -->
+<ion-view view-title="Movie Details" hide-nav-bar="true" class="rubyonic-pane view-post-screen">
+  <!-- 
+  setting 'hide-nav-bar="true"' above enables us to create our own header bar
+  by hiding the default one without messing with ionic's state/history management
+  -->
+
+<ion-header-bar align-title="center" class="bar post-bar" ng-controller="NavigationCtrl">
+  <div class="buttons">
+    <button class="button button-clear" ng-click="go('app.running')">
+      <i class="icon ion-home"></i>
+    </button>
+  </div>
+  <h1 class="title">
+    {{title}}
+  </h1>
+  <div class="buttons">
+    <button class="button button-clear">
+      <i class="icon ion-share"></i>
+    </button>
+  </div>
+</ion-header-bar>
+
+  <ion-content ng-controller="MovieDetailCtrl"> <!-- Controller might not be needed to defined explicitly. it can create scope issues-->
+    
+      <div class="post">
+        <div class="post-overlay"></div>
+        <img class="post-wallpaper" ng-src="{{movie.poster_url}}" alt="" style="width:100%">
+        <div class="post-details">
+          <h3 class="post-title">{{movie.name}}
+           ({{movie.lang}})
+          </h3>
+
+          <h4 class="post-by brand-base-text-color clearfix">
+            <span ng-repeat="gen in movie.genre">{{ gen }}{{$last ? '' : ', '}}</span>
+            
+            <span style="float:right">Releasing <i class="ion-ios-clock-outline"></i> {{movie.release_ts | date}}</span>
+          </h4>
+        </div>
+      </div>
+
+
+      <!-- Post Content -->
+      <div class="row post-section">
+
+        <div class="post-content" style="width:100%">
+                  <button class="button button-energized" style="width:100%"  ng-click="goBook('{{movie.link}}')" >
+                  Book on Ticket New
+                  </button>
+                  <br/><br/>
+                  <button class="button button-assertive" style="width:100%"  ng-click="goBook('{{movie.link}}')" >
+                  Book on Book My Show
+                  </button>
+      <br/> <br/>
+
+          <p>Director: {{movie.director[0]}} </p>
+          <p>Music Director: {{movie.music_director[0]}} </p>
+          <p>Actors: <span ng-repeat="actor in movie.actors">{{ actor }}{{$last ? '' : ', '}}</span>  </p>
+          <p>Producer: <span ng-repeat="prod in movie.producer">{{ prod }}{{$last ? '' : ', '}}</span>  </p>
+  
+        </div>
+      </div>
+
+      
+
+         
+      <!-- End Post Content -->
+
+
+  </ion-content>
+
+</ion-view>

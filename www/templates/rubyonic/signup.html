@@ -1,0 +1,65 @@
+<!-- Login Screen - refer to login.scss -->
+<ion-view view-title="Signup" hide-nav-bar="true">
+  <ion-content class="rubyonic-pane login-screen">
+
+
+  	
+	  	<!-- Logo Section - center aligned by default -->
+
+	  	<div class="logo">
+	  		<img src="img/logo.png" alt="" width="80%">
+		</div>
+		<!-- End Logo Section -->
+
+		<!-- A description section. Useful for a short pitch -->
+	  	<!-- <h4 class="description">A high-status theme pack for your next Ionic Project</h4> -->
+	  	<!-- End description -->
+
+	  	<!-- Login Form - note the modifier 'is-transparent' is for the form to be see through -->
+	  
+
+
+	  <div class="list list-inset login-form is-transparent">
+	  	  <!--	<center><h4>Create a new account</h4></center>-->
+
+		  <label class="item item-input">
+		  	<i class="icon ion-person placeholder-icon"></i>
+		    <input type="text" placeholder="enter your username..." ng-model="data.username">
+		  </label>
+
+		  <label class="item item-input">
+             <i class="icon ion-email placeholder-icon"></i>
+            <input type="email" placeholder="enter your email..." ng-model="data.email">
+          </label>
+
+		  <label class="item item-input">
+		  	<i class="icon ion-locked placeholder-icon" ng-model="data.password"></i>
+		   <input type="password" placeholder="enter your password..." ng-model="data.password">
+		  </label>
+
+		  <div class="button-stack" >
+		  	<button class="button button-positive button-block" ng-click="signupEmail()">Sign me up</button>
+
+		  </div>
+
+		  
+
+		  <div ng-controller="NavigationCtrl">
+		  	<center><h4>Already have an account?</h4></center>
+		  	<button ng-click="go('app.login')" class="button button-balanced button-block">Login</button>
+		  	<!--
+		  	<button class="button button-transparent button-block">Forgot Password?</button>
+		  -->
+		  </div>
+
+	</div>
+
+
+
+
+
+
+
+  </ion-content>
+
+</ion-view>
