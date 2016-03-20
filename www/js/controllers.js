@@ -236,7 +236,7 @@ angular.module('starter.controllers', [])
 
       if($stateParams.movie_name!="")
       {
-       url='http://128.199.141.102:8080/api/movies/name/'+$stateParams.movie_name;
+       url='http://128.199.141.102:8080/api/movies/id/'+$stateParams.movie_id;
        //$scope.movie = {"name":url};
        console.log(url);
        
@@ -445,10 +445,10 @@ angular.module('starter.controllers', [])
     window.open(path1, '_system', 'location=yes');
   };      
 
-  $scope.goMoviePage = function (name) {
+  $scope.goMoviePage = function (id) {
     //window.open(path);
     //window.open(path, '_system', 'location=yes');
-    $state.go('app.movie',{movie_name:name});
+    $state.go('app.movie',{movie_id:id});
   };      
   
 })

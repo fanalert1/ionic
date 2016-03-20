@@ -150,7 +150,7 @@ angular.module('starter', ['ionic','ionic.service.core', 'starter.controllers', 
   })
 
   .state('app.movie', {
-    url: "/movie/:movie_name",
+    url: "/movie/:movie_id",
     views: {
       'menuContent': {
         templateUrl: "templates/rubyonic/view-movie.html",
