@@ -18,6 +18,12 @@ angular.module('starter.controllers', [])
  
   $scope.data = {};
 
+  if(Parse.User.current() != null)
+    {
+      alert("you are already logged in!!");
+      $state.go('app.profile');
+    }
+
   $scope.show = function() {
     $ionicLoading.show({
       template: 'Loading...'
@@ -194,7 +200,7 @@ angular.module('starter.controllers', [])
               // Hooray! Let them use the app now.
               $scope.welcome(user);
               $scope.hide();
-              //alert("Logging in...");
+              //alert("You are successfully logged in..");
               $state.go('app.profile');
             },
             error: function(user, error) {
@@ -204,7 +210,7 @@ angular.module('starter.controllers', [])
             }
           });
         
-          $scope.welcome(user);
+         // $scope.welcome(user);
          
         };
 
@@ -222,9 +228,80 @@ angular.module('starter.controllers', [])
         }
       });
     };
+
+
+    $scope.checkEmail = function(email)
+    {
+        var atpos = email.indexOf("@");
+        var dotpos = email.lastIndexOf(".");
+
+        if (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length) 
+        {
+            return false;
+        }
+        return true;
+    }
+
+    $scope.resetPassword = function()
+    {           
+        //var email = document.forms["resetpassword"]["email"].value;
+        var email = $scope.data.email;
+        var emailIsValid = $scope.checkEmail(email);
+
+        if (!emailIsValid)
+        {
+            window.alert("Not a valid e-mail address");
+            return false;
+        }
+
+        Parse.User.requestPasswordReset(email, {
+                    success:function() {
+                        window.alert("Password reset link has been sent to "+ email);
+                        $state.go('app.login');
+                        return true;
+                    },
+                    error:function(error) {
+                        window.alert(error.message);
+                        return false;
+                    }
+                });
+    }
+
+
+   
+
+
  
 })
 
+
+.controller('FeedCtrl', function($scope, $http, $state, $ionicScrollDelegate, loadingService) {
+
+
+       loadingService.show();
+       $scope.events = [];
+     // $scope.title = "";
+       url='http://128.199.141.102:8080/api/events';
+       //$scope.movie = {"name":url}; 
+       $http.get(url).
+            success(function(data) {
+             // $scope.events = data;
+            //$scope.events = JSON.stringify(data); //try JSON.parse for js string to json
+            //$scope.events = JSON.parse($scope.events);
+           $scope.events = data;
+            console.log($scope.events);
+            //console.log(data);
+              loadingService.hide();
+            });
+
+
+        $scope.goMoviePage = function (id) {
+            //window.open(path);
+            //window.open(path, '_system', 'location=yes');
+            $state.go('app.movie',{movie_id:id});
+          };  
+     // console.log("events:"+$scope.events);
+})
 
 .controller('MovieDetailCtrl', function($scope, $stateParams, $http, $state, $ionicScrollDelegate, loadingService) {
 
@@ -234,27 +311,49 @@ angular.module('starter.controllers', [])
       $scope.title = "";
 
 
-      if($stateParams.movie_name!="")
+      if($stateParams.movie_id!="")
       {
        url='http://128.199.141.102:8080/api/movies/id/'+$stateParams.movie_id;
        //$scope.movie = {"name":url};
-       console.log(url);
+       //console.log(url);
        
        $http.get(url).
             success(function(data) {
+              //data = data[]
               $scope.movie = data[0];
-              $scope.link = $scope.movie['link'];
-              console.log($scope.link);
+             // console.log($scope.movie["source"]);
+              $scope.source = $scope.movie["source"];
+
+              for(var i=0;i<$scope.source.length;i++){
+                var obj = $scope.source[i];
+                //console.log(obj);
+                /*for (x in obj) {
+                  console.log(x);
+                  if(x=="bms")
+                   var bms_link =  obj[x]["link"];
+                  else
+                   var tn_link = obj[x]["link"];
+                }*/
+                if(obj.source=="bms")
+                  $scope.bms_link=obj.link;
+                else if(obj.source=="tktnew")
+                  $scope.tn_link=obj.link;
+              }
+
               $scope.title = "Movie Details";
               loadingService.hide();
             });
 
       }
 
-       $scope.goBook = function (path1) {
-        console.log("path1"+$scope.link);
-        path1=$scope.link;
-        window.open(path1, '_system', 'location=yes');
+       $scope.go = function(link) {
+           
+            console.log(link);
+            if(link=="tn")
+            window.open($scope.tn_link, '_system', 'location=yes');
+            else if(link=="bms")
+            window.open($scope.bms_link, '_system', 'location=yes');
+            
       };   
 
 
@@ -301,6 +400,7 @@ angular.module('starter.controllers', [])
         success(function(data) {
           
           $scope.all_movies = data;
+
           $scope.title = "All Movies";
 
           $scope.lang = "Tamil"
@@ -323,6 +423,7 @@ angular.module('starter.controllers', [])
         success(function(data) {
           
           $scope.all_movies = data;
+         // console.log("Movies:"+$scope.all_movies);
           $scope.title = "Coming Soon";
           console.log(data);
 
@@ -346,7 +447,7 @@ angular.module('starter.controllers', [])
         success(function(data) {
           
           $scope.all_movies = data;
-          $scope.title = "Upcoming (Book. Open)";
+          $scope.title = "Upcoming";
           console.log(data);
 
           $scope.lang = "Tamil"
@@ -438,12 +539,36 @@ angular.module('starter.controllers', [])
   };    
 
 
-  $scope.go = function (path1) {
-    //window.open(path);
-    //path="http://www.google.com";
-    console.log("path1"+path1);
-    window.open(path1, '_system', 'location=yes');
-  };      
+   $scope.go = function (source,site) {
+          var arr = JSON.parse(source);
+          console.log(arr.length);
+          for(var i=0;i<arr.length;i++){
+                var obj = arr[i];
+                //console.log(obj);
+                /*for (x in obj) {
+                  console.log(x);
+                  if(x=="bms")
+                   var bms_link =  obj[x]["link"];
+                  else
+                   var tn_link = obj[x]["link"];
+                }*/
+                if(obj.source=="bms")
+                  bms_link=obj.link;
+                 
+                else if(obj.source=="tktnew")
+                  tn_link=obj.link;
+
+
+            }
+          console.log(bms_link);
+          console.log(tn_link)
+          if(site=="bms")
+          window.open(bms_link, '_system', 'location=yes');
+          else if(site=="tn")
+          window.open(tn_link, '_system', 'location=yes');
+        
+      };    
+
 
   $scope.goMoviePage = function (id) {
     //window.open(path);
@@ -488,10 +613,22 @@ angular.module('starter.controllers', [])
       console.log($ionicHistory.viewHistory());
   }
 
+  $scope.logout = function(){
+      // console.log('working. Click was Triggered');
+      //$state.go(path);
+      //console.log($ionicHistory.viewHistory());
+      Parse.User.logOut();
+      alert("Logged out");
+      // $state.go("app.login");
+      ionic.Platform.exitApp();
+
+  }
+
   //Function to go back a step using $ionicHistory
   $scope.goBackAStep = function(){
       console.log('clicked');
       $ionicHistory.goBack();
+
   }
 
 })

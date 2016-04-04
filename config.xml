@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.rubyapp154764" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>FanAlert</name>
+<widget id="com.ionicframework.rubyapp154764" version="0.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Fan Alert</name>
   <description>
-        Get live booking status here
+        Get notified instantly when movie booking opens in your region!
     </description>
   <author email="fanalert1@gmail.com" href="http://example.com.com/">
-      Balagovindan Veeraragavan, Manikandan Maheswaran
+      BMS
     </author>
   <content src="index.html"/>
   <access origin="*"/>

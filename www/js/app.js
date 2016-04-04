@@ -61,7 +61,7 @@ angular.module('starter', ['ionic','ionic.service.core', 'starter.controllers', 
              //console.log(notification, payload);
              alert(payload.title+" - "+payload.message+". Click ok to book");
              //$state.go('app.movie',{movie_id:id});
-             $state.go('app.movie',{movie_name:payload.movie_name});
+             $state.go('app.movie',{movie_id:payload.movie_id});
           },
           "pluginConfig": {
             "android": {
@@ -127,6 +127,16 @@ angular.module('starter', ['ionic','ionic.service.core', 'starter.controllers', 
     },
   })
 
+  .state('app.feed', {
+    url: '/feed',
+    views: {
+      'menuContent': {
+        templateUrl: "templates/rubyonic/feed.html",
+        controller: 'FeedCtrl'
+      }
+    },
+  })
+
 
   .state('app.signup', {
     url: '/signup',
@@ -143,6 +153,16 @@ angular.module('starter', ['ionic','ionic.service.core', 'starter.controllers', 
     views: {
       'menuContent': {
         templateUrl: 'templates/rubyonic/login.html',
+        controller: 'LoginCtrl'
+      }
+    },
+  })
+
+  .state('app.forgot', {
+    url: '/forgot',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/rubyonic/forgot.html',
         controller: 'LoginCtrl'
       }
     },

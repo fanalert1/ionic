@@ -15,8 +15,8 @@
 
   <!-- Left Menu Bar -->
 
-  <ion-side-menu side="left">
-    <ion-content class="menu-screen">
+  <ion-side-menu side="left" ng-controller="NavigationCtrl">
+    <ion-content class="menu-screen" >
 
       <!-- Profile Section -->
       <div class="profile-box">
@@ -29,7 +29,7 @@
       -->
 
       
- <img src="img/logo.png" width="240" alt="" >
+ <img src="img/title_logo.png" width="240" alt="" >
        
        <!--<h1 class="profile-name brand-base-text-color">fanAlert</h1>
 -->
@@ -43,7 +43,7 @@
       <!-- End Group Header -->
 
       <!-- Ionic List -->
-      <ion-list ng-controller="NavigationCtrl">
+      <ion-list>
 
           <ion-item nav-clear menu-close ng-click="go('app.running')" class="item item-icon-left brand-base-text-color">
             <i class="icon ion-arrow-right-b"></i>
@@ -79,20 +79,21 @@
             Profile
           </ion-item>
 
-
+          <!--
           <ion-item nav-clear menu-close ng-click="go('app.signup')" class="item item-icon-left brand-base-text-color">
             <i class="icon ion-person-add"></i>
             Register
             
           </ion-item>
-
+          -->
+          <!--
 
            <ion-item nav-clear menu-close ng-click="go('app.login')" class="item item-icon-left brand-base-text-color">
             <i class="icon ion-log-in"></i>
             Login
             
            </ion-item>
-            
+          -->
            <ion-item nav-clear menu-close ng-click="go('app.intro')" class="item item-icon-left brand-base-text-color">
             <i class="icon ion-log-in"></i>
             Intro
@@ -136,10 +137,10 @@
 
     <!-- Footer Bar and Buttons -->
 
-    <ion-footer-bar class="auto-height bar-assertive menu-footer-bar">
+    <ion-footer-bar class="auto-height bar-assertive menu-footer-bar" >
       <div class="row">
        <!-- <button class="col button button-dark"><i class="ion-gear-b"></i> Settings</button> -->
-        <button class="col button button-clear"><i class="ion-log-out"></i> Logout</button>
+        <button class="col button button-clear" ng-click="logout()" ><i class="ion-log-out"></i> Logout</button>
       </div>
     </ion-footer-bar>
 

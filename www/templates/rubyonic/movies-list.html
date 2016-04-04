@@ -46,7 +46,9 @@
 
             
 
-              <img src="{{movie.poster_url}}" style="float: left; position: static; margin-right: 15px; max-height: 120px;" ng-href="{{movie.link}}" >
+              <img src="{{movie.poster_url}}" style="float: left; position: static; margin-right: 15px; max-height: 120px;" ng-href="goMoviePage('{{movie._id}}')" ng-if="movie.poster_url!='false'" >
+
+              <img src="http://ia.media-imdb.com/images/G/01/imdb/images/poster/movie_large-2652508870._V_.png" style="float: left; position: static; margin-right: 15px; max-height: 120px; background: -webkit-linear-gradient(top, #888888 0%, #eeeeee 100%)" ng-href="goMoviePage('{{movie._id}}')" ng-if="movie.poster_url=='false'" >
 
 
               <h3 class="notification-title">{{movie.name}} ({{movie.lang}}) </h3>
@@ -57,11 +59,11 @@
                 
                 <!--<p>{{movie.update_ts | date:'MM/dd/yyyy hh:mm:ss' }}</p>-->
                 
-              <button class="button button-small"  ng-click="go('{{movie.link}}')" ng-if="movie.type=='running'">
+              <button class="button button-small"  ng-click="go('{{movie.source}}','bms')" ng-if="movie.type=='running'">
                   Book Now
               </button>
                
-              <button class="button button-small"  ng-click="goMoviePage('{{movie.id}}')">
+              <button class="button button-small"  ng-click="goMoviePage('{{movie._id}}')">
                   More..
               </button>
 

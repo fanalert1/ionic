@@ -1,0 +1,41 @@
+<!-- Login Screen - refer to login.scss -->
+<ion-view view-title="Forgot Password" hide-nav-bar="true">
+  <ion-content class="rubyonic-pane login-screen">
+
+	  	<!-- Logo Section - center aligned by default -->
+	  	
+
+	  	<div class="logo" >
+	  		<img src="img/logo.png" alt="">
+	  		
+		</div>
+
+		
+	  	<div class="list list-inset login-form is-transparent">
+	  		<h4>&nbsp&nbspEnter your email id..</h4>
+			  <br/>
+			  <label class="item item-input">
+	             <i class="icon ion-email placeholder-icon"></i>
+	            <input type="email" placeholder="enter your email.." ng-model="data.email">
+	          </label>
+
+			  <div class="button-stack" ng-controller="NavigationCtrl">
+			  	<button class="button button-positive button-block" ng-click="resetPassword()">Reset Password</button>
+			  </div>
+
+			  <!--
+		     <div ng-controller="NavigationCtrl">
+		     <br/>
+		  	 <button ng-click="go('app.login')" class="button button-balanced button-block">Login</button>
+		      -->
+		  	<!--
+	  	<button class="button button-transparent button-block">Forgot Password?</button>
+	  -->
+	  		 </div>
+
+		</div>
+		
+
+  </ion-content>
+
+</ion-view>

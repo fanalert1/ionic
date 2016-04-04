@@ -6,7 +6,7 @@
 	  	
 
 	  	<div class="logo" >
-	  		<img src="img/logo.png" alt="">
+	  		<img src="img/title_logo.png" alt="">
 	  		
 		</div>
 
@@ -31,16 +31,20 @@
 
 		  <div class="button-stack" ng-controller="NavigationCtrl">
 		  	<button class="button button-positive button-block" ng-click="loginEmail()">Login</button>
+		    <a ng-click="go('app.forgot')" style="float: right;text-decoration: underline;">Forgot Password?</a>
 
 
-
-       <br/>
+       		<br/><br/>
 
 		  	<center><h4>Do not have an account?</h4></center>
 		  	<button ng-click="go('app.signup')" class="button button-balanced button-block">Signup</button>
 		  	<!--
 		  	<button class="button button-transparent button-block">Forgot Password?</button>
 		  -->
+
+		    <!--
+		    <button ng-click="resetPassword()" class="button button-balanced button-block">Forgot Password?</button> -->
+		    
 		  </div>
 
 		</div>
