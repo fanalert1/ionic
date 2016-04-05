@@ -4015,7 +4015,7 @@ a.subdued {
     left: 0;
     z-index: 0;
     overflow: hidden;
-    margin: 0 10px;
+    margin: -1px 10px;
     min-width: 30px;
     height: 43px;
     text-align: center;
@@ -9509,7 +9509,10 @@ ion-footer-bar.chat-footer-bar .button,
   background: #E74C3C; }
 
 .menu-screen, .menu-screen.pane {
-  background: #e6e6e6; }
+  background: #e6e6e6; 
+  background: url("../img/fans.png") repeat-x center bottom;
+
+}
 
 .menu-screen .item-complex .item-content, .menu-screen .item {
   background-color: transparent; }

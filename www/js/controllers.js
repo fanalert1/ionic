@@ -8,8 +8,108 @@ angular.module('starter.controllers', [])
   $scope.session_data = Parse.User.current();
   $scope.user_id=$scope.session_data.id;
   $scope.token=Parse.User.current().get("token");
+
+  $scope.notify=Parse.User.current().get("notify");
+  $scope.notify= ($scope.notify === "true");
+  //$scope.notify=true;
+ // alert($scope.notify);
+  $scope.tamil=Parse.User.current().get("tamil");
+  $scope.tamil= ($scope.tamil === "true");
+
+  $scope.english=Parse.User.current().get("english");
+  $scope.english= ($scope.english === "true");
+
+  $scope.hindi=Parse.User.current().get("hindi");
+  $scope.hindi= ($scope.hindi === "true");
+
+  $scope.others=Parse.User.current().get("others");
+  $scope.others= ($scope.others === "true");
+
+
+  //alert($scope.others);
+
   $scope.email=Parse.User.current().getEmail();
   $scope.user_name=Parse.User.current().getUsername();
+
+
+  $scope.toggleChange = function(val) {
+
+      if(val=='notify')
+      {
+                if ($scope.notify == false) {
+                    $scope.notify = true;
+                } 
+                else
+                {
+                    $scope.notify = false;                  
+                }
+      }
+      if(val=='tamil')
+      {
+                if ($scope.tamil == false) {
+                    $scope.tamil = true;
+                } 
+                else
+                {
+                    $scope.tamil = false;
+                }   
+      }
+       if(val=='hindi')
+      {
+                if ($scope.hindi == false) {
+                    $scope.hindi = true;
+                } else
+                {
+                    $scope.hindi = false;
+                }  
+      }
+       if(val=='english')
+      {
+                if ($scope.english == false) {
+                    $scope.english = true;
+                } else
+                {
+                    $scope.english = false;
+                }   
+      }
+      if(val=='others')
+      {
+                if ($scope.others == false) {
+                    $scope.others = true;
+                } else
+                {
+                    $scope.others = false;
+                }   
+      }
+  };
+
+  $scope.saveSettings = function()
+  {
+     var user = Parse.User.current();
+      //if($scope.notify)  
+       //alert($scope.notify);    
+          // other fields can be set just like with Parse.Object
+    user.set("notify", String($scope.notify));
+    user.set("tamil", String($scope.tamil));
+    user.set("english", String($scope.english));
+    user.set("hindi", String($scope.hindi));
+    user.set("others", String($scope.others));
+
+          user.save(null, {
+            success: function(user) {
+              // Hooray! Let them use the app now.
+             // $scope.welcome(user);
+             // $scope.hide();
+              alert("Successfully saved");
+              $state.go('app.running');
+            },
+            error: function(user, error) {
+              // Show the error message somewhere and let the user try again.
+              //$scope.hide();
+              alert("Error: " + error.code + " " + error.message);
+            }
+          });
+  }
 
 
   })
@@ -61,14 +161,14 @@ angular.module('starter.controllers', [])
               "tokens": tokens,
               "notification": {
                 "title": "Hello "+user_name,
-                "alert": "Welcome to FanAlert. You will be notified instantly when movie bookings open.",
+                "alert": "Welcome to FanAlert. From now, you will be notified instantly when movie bookings open.",
                 "android":{
                   "collapseKey":"foo8",
                   "delayWhileIdle":true,
                   "timeToLive":100,
                   "payload":{
                      "title": "Hello "+user_name,
-                     "message": "Welcome to FanAlert. You will be notified instantly when movie bookings open."
+                     "message": "Welcome to FanAlert. From now, you will be notified instantly when movie bookings open."
                   }
                 }
               }
@@ -138,6 +238,12 @@ angular.module('starter.controllers', [])
          
           // other fields can be set just like with Parse.Object
           user.set("token", data.token);
+          user.set("notify", "true");
+          user.set("tamil", "true");
+          user.set("english", "true");
+          user.set("hindi", "true");
+          user.set("others", "true");
+          //tamil":"true","english":"true","hindi":"true","others":"true"
 
          
           user.signUp(null, {
@@ -147,7 +253,7 @@ angular.module('starter.controllers', [])
               $scope.hide();
               alert("You are successfully registered!");
 
-              $state.go('app.profile');
+              $state.go('app.settings');
             },
             error: function(user, error) {
               // Show the error message somewhere and let the user try again.
@@ -201,7 +307,7 @@ angular.module('starter.controllers', [])
               $scope.welcome(user);
               $scope.hide();
               //alert("You are successfully logged in..");
-              $state.go('app.profile');
+              $state.go('app.settings');
             },
             error: function(user, error) {
               // Show the error message somewhere and let the user try again.
@@ -363,7 +469,7 @@ angular.module('starter.controllers', [])
 
 
 
-.controller('MovieCtrl', function($scope, $stateParams, $http, $state, $ionicScrollDelegate, filterFilter, loadingService) {
+.controller('MovieCtrl', function($scope, $stateParams, $http, $state, $ionicScrollDelegate, filterFilter, loadingService, $ionicActionSheet, $timeout) {
   
   loadingService.show();
   $scope.movies = [];
@@ -393,6 +499,74 @@ angular.module('starter.controllers', [])
   }
 */
   
+  $scope.show = function(source) {
+          $scope.buttons = [];
+          $scope.links = [];
+          var link_counter=0;
+          //code to extract links
+          var arr = JSON.parse(source);
+          console.log(arr.length);
+          
+          for(var i=0;i<arr.length;i++){
+                var obj = arr[i];
+                //console.log(obj);
+                /*for (x in obj) {
+                  console.log(x);
+                  if(x=="bms")
+                   var bms_link =  obj[x]["link"];
+                  else
+                   var tn_link = obj[x]["link"];
+                }*/
+                if(obj.source=="bms")
+                {
+                  $scope.buttons.push({text: '&nbsp;&nbsp;&nbsp;&nbsp;Go to Book My Show'});
+                  bms_link=obj.link;
+                  $scope.links[link_counter]=bms_link;
+                  link_counter++;
+                }
+                else if(obj.source=="tktnew")
+                {
+                  $scope.buttons.push({text: '&nbsp;&nbsp;&nbsp;&nbsp;Go to Ticket New'});
+                  //$scope.buttons =
+                  tn_link=obj.link;
+                  $scope.links[link_counter]=tn_link;
+                  link_counter++;
+                }
+
+            }
+             //end of code to extract links
+             // console.log(bms_link);
+             // console.log(tn_link)
+             // Show the action sheet
+       var hideSheet = $ionicActionSheet.show({
+         buttons: $scope.buttons,
+           // destructiveText: 'Delete',
+         titleText: 'Booking Pages',
+           // cancelText: 'Cancel',
+           //  cancel: function() {
+           // add cancel code..
+           //    },
+         buttonClicked: function(index) {
+
+            //console.log($scope.links[index]);
+            
+            window.open($scope.links[index], '_system', 'location=yes');
+            
+            return true;
+         }
+       });
+
+     // For example's sake, hide the sheet after two seconds
+     $timeout(function() {
+       hideSheet();
+     }, 2000);
+
+  };
+
+  //end of pop over code
+  
+  
+
   if($stateParams.type=="all")
   {
    

@@ -14,11 +14,13 @@
   <h1 class="title">
     {{title}}
   </h1>
+  <!--
   <div class="buttons">
     <button class="button button-clear">
       <i class="icon ion-share"></i>
     </button>
   </div>
+-->
 </ion-header-bar>
 
   <ion-content ng-controller="MovieDetailCtrl"> <!-- Controller might not be needed to defined explicitly. it can create scope issues-->
@@ -55,10 +57,10 @@
                   </button>
       <br/> <br/>
 
-          <p>Director: {{movie.director[0]}} </p>
-          <p>Music Director: {{movie.music_director[0]}} </p>
-          <p>Actors: <span ng-repeat="actor in movie.actors">{{ actor }}{{$last ? '' : ', '}}</span>  </p>
-          <p>Producer: <span ng-repeat="prod in movie.producer">{{ prod }}{{$last ? '' : ', '}}</span>  </p>
+          <p>Director: {{movie.director[0] || '-'}} </p>
+          <p>Music Director: {{movie.music_director[0] || '-'}} </p>
+          <p ng-if="movie.actors!=null">Actors: <span ng-repeat="actor in movie.actors">{{ actor }}{{$last ? '' : ', '}}</span>  </p>
+          <p ng-if="movie.producer!=null">Producer: <span ng-repeat="prod in movie.producer">{{ prod }}{{$last ? '' : ', '}}</span>  </p>
   
         </div>
       </div>

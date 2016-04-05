@@ -1,3 +1,38 @@
+<html>
+ <head>
+
+  <style>
+
+      .thumbnail {
+        position: relative;
+        width: 80px;
+        height: 120px;
+        overflow: hidden;
+        float: left;
+        margin-right: 15px; 
+        max-height: 120px;
+      }
+      .thumbnail img {
+        position: relative;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        width: auto;
+         -webkit-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%);
+      }
+      .thumbnail img.portrait {
+        width: 100%;
+        height: auto;
+      }
+  </style>
+
+
+ </head>
+
+<body>
+
 <!-- Chat Screen - Refer to _chat.scss -->
 <ion-view view-title="{{title}}" hide-nav-bar="true" class="rubyonic-pane chat-screen">
   <!-- Custom Header:
@@ -30,60 +65,66 @@
       	<div class="list list-inset form-rb">
             <label class="item item-input ruby-search-box">
                 <i class="icon ion-search placeholder-icon"></i>
-                <input type="text" placeholder="Search Movies" ng-model="searchText">
+                <input type="text" placeholder="Enter Movie Name.." ng-model="searchText">
             </label>
         </div>
 
 
  <!-- 	<div class="list chat-list" ng-controller="MovieCtrl"> -->
   <!-- Controller might not be needed to defined explicitly. it can create scope issues-->
+  <div class="list" ng-if="movies.length==0">
+        <center><h4>No Movies Found</h4></center>
+  </div>
 
- <div class="list">
+
+  <div class="list" ng-if="movies.length>0">
 
       <!-- <a class="item item-avatar busy" -->
 
             <a class="item" href="#" ng-repeat="movie in movies | filter:searchText">
 
-            
+              <div class="thumbnail" ng-if="movie.poster_url.indexOf('.jpg') != -1 && movie.poster_url!=null && movie.poster_url!='false' && movie.poster_url!='' ">
+                <img src="{{movie.poster_url}}"  alt="Image" />
+              </div>
+              <!--
+                movie.poster_url.indexOf('.jpg') != -1 && 
 
-              <img src="{{movie.poster_url}}" style="float: left; position: static; margin-right: 15px; max-height: 120px;" ng-href="goMoviePage('{{movie._id}}')" ng-if="movie.poster_url!='false'" >
+               <img src="{{movie.poster_url}}" style="float: left; position: static; margin-right: 15px; max-height: 120px;" ng-href="goMoviePage('{{movie._id}}')" ng-if="movie.poster_url!='false'" >
+             -->
 
               <img src="http://ia.media-imdb.com/images/G/01/imdb/images/poster/movie_large-2652508870._V_.png" style="float: left; position: static; margin-right: 15px; max-height: 120px; background: -webkit-linear-gradient(top, #888888 0%, #eeeeee 100%)" ng-href="goMoviePage('{{movie._id}}')" ng-if="movie.poster_url=='false'" >
+
+              <img src="http://ia.media-imdb.com/images/G/01/imdb/images/poster/movie_large-2652508870._V_.png" style="float: left; position: static; margin-right: 15px; max-height: 120px; background: -webkit-linear-gradient(top, #888888 0%, #eeeeee 100%)" ng-href="goMoviePage('{{movie._id}}')" ng-if="movie.poster_url==null" >
 
 
               <h3 class="notification-title">{{movie.name}} ({{movie.lang}}) </h3>
                 <p><span ng-repeat="actor in movie.actors">{{ actor }}{{$last ? '' : ', '}}</span>  </p>
-                <p>Directed By {{movie.director[0]}} </p>
+                <p>Directed By {{movie.director[0] || '-'}} </p>
                 <p>Releasing on {{movie.release_ts | date}}</p>
                 <!-- <p>Status: {{movie.type}}</p> -->
                 
                 <!--<p>{{movie.update_ts | date:'MM/dd/yyyy hh:mm:ss' }}</p>-->
-                
-              <button class="button button-small"  ng-click="go('{{movie.source}}','bms')" ng-if="movie.type=='running'">
+              
+              <!-- ng-click="go('{{movie.source}}','bms')"  -->
+              <button class="button button-small" ng-click="show('{{movie.source}}')" ng-if="movie.type=='running'">
                   Book Now
               </button>
+
+
                
               <button class="button button-small"  ng-click="goMoviePage('{{movie._id}}')">
                   More..
               </button>
 
-
                 
-                <span class="badge badge-balanced" ng-if="movie.type=='running'" style="font-size:10px">Book. Open</span> 
-                
-    
-                <span class="badge badge-assertive" ng-if="movie.type=='upcoming'">Book. Not Open</span> 
+              <span class="badge badge-balanced" ng-if="movie.type=='running'" style="font-size:10px">Book. Open</span>
+              <span class="badge badge-assertive" ng-if="movie.type=='upcoming'">Book. Not Open</span> 
               
             
             </a>
 
             <br/><br/>
-
-
-
-
-
-          <!--
+         <!--
             <a class="item item-avatar online" ng-click="go('app.chat-ui')">
               <img src="img/demo/profile-image.jpg" class="notification-thumb">
               <h3 class="notification-title">Tracy Melfin</h3>
@@ -91,19 +132,9 @@
             </a>
 
           -->
-
-            
-
     </div>
-
-
   </div>
-
-
-
   </ion-content>
-
-
 
 
 

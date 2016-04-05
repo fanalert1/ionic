@@ -258,6 +258,16 @@ angular.module('starter', ['ionic','ionic.service.core', 'starter.controllers', 
     }
   })
 
+  .state('app.settings', {
+    url: "/settings",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/rubyonic/settings.html",
+        controller: 'ProfileCtrl'
+      }
+    }
+  })
+
 /*
   .state('app.forms', {
     url: "/forms",
